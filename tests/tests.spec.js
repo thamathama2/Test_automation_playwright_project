@@ -4,6 +4,10 @@ import { LoginPage } from "../pages/UI/ui_login.js";
 import utilities from '../utilities/utilities.json';
 import { loginApi } from '../pages/API/api_login.js';
 import { baseURL, endpoints } from '../pages//API/api.js';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const utilitiesPath = path.join(__dirname, '..', 'utilities', 'utilities.json');
 
 
 // test.describe('SauceDemo Login Tests', () => {
@@ -28,6 +32,7 @@ import { baseURL, endpoints } from '../pages//API/api.js';
 test.describe('Restful Booker Booking CRUD operations', () => {
   let token= '';
   let bookingId = '';
+  const booking_id = utilities.bookingID
 
   test.beforeAll(async ({ request }) => {
     token = await loginApi(request);
@@ -56,14 +61,28 @@ test.describe('Restful Booker Booking CRUD operations', () => {
     expect(response.status()).toBe(200);
     const body = await response.json();
     expect(body).toHaveProperty('bookingid');
-    bookingId = body.bookingid;
-    console.log(JSON.stringify(body, null, 2));
+
+    // Extract the booking_id returned by the API
+    const newBookingId = body.bookingid;
+
+    // Read current utilities.json data
+    const fileContent = await fs.readFile(utilitiesPath, 'utf8');
+    const utilitiesData = JSON.parse(fileContent);
+
+    // Update booking_id
+    utilitiesData.bookingID = newBookingId;
+
+    // Write the updated data back to utilities.json with formatting
+    await fs.writeFile(utilitiesPath, JSON.stringify(utilitiesData, null, 2), 'utf8');
+
+    console.log(`Updated booking_id in utilities.json to: ${newBookingId}`);
+    // bookingId = body.bookingid;
+    // console.log(JSON.stringify(body, null, 2));
 
     
   });
 
   test('Get Booking Details', async ({ request }) => {
-    const booking_id = utilities.bookingID
     const response = await request.get(`${baseURL}${endpoints.booking}/${booking_id}`, {
       headers: {
         Accept: 'application/json',
@@ -71,8 +90,9 @@ test.describe('Restful Booker Booking CRUD operations', () => {
     });
     expect(response.status()).toBe(200);
     const body = await response.json();
-    expect(body.firstname).toBe('Josh');
-    expect(body.lastname).toBe('Allen');
+    console.log(JSON.stringify({body}))
+    expect(body.firstname).toBe('John');
+    expect(body.lastname).toBe('Doe');
   });
 
   test('Update Booking', async ({ request }) => {
@@ -87,7 +107,7 @@ test.describe('Restful Booker Booking CRUD operations', () => {
       },
       additionalneeds: 'Lunch',
     };
-    const response = await request.put(`${baseURL}${endpoints.booking}/${bookingId}`, {
+    const response = await request.put(`${baseURL}${endpoints.booking}/${booking_id}`, {
       data: updateData,
       headers: {
         'Content-Type': 'application/json',
@@ -101,11 +121,20 @@ test.describe('Restful Booker Booking CRUD operations', () => {
   });
 
   test('Delete Booking', async ({ request }) => {
-    const response = await request.delete(`${baseURL}${endpoints.booking}/${bookingId}`, {
+    const response = await request.delete(`${baseURL}${endpoints.booking}/${booking_id}`, {
       headers: {
         Cookie: `token=${token}`,
       },
     });
-    expect(response.status()).toBe(201); // Restful-Booker returns 201 on successful deletion
+    expect(response.status()).toBe(201);
+
+    const verify_deletion_response = await request.get(`${baseURL}${endpoints.booking}/${booking_id}`, {
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+    expect(verify_deletion_response.status()).toBe(404);
+    
+    
   });
 });
