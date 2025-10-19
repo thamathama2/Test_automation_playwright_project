@@ -1,3 +1,61 @@
 {
-  "bookingID": 2981
+  "bookingID": 3314,
+  "login": {
+    "usernameInput": "#user-name",
+    "passwordInput": "#password",
+    "loginButton": "//input[@id='login-button']",
+    "errorMessage": "//div[@class='error-message-container error']"
+    
+  },
+  "userInterface": {
+    "sauceLabsBackpackAddToCart": "//button[@id='add-to-cart-sauce-labs-backpack']",
+    "sauceLabsBikeLightAddToCart": "//button[@id='add-to-cart-sauce-labs-bike-light']",
+    "sauceLabsBoltTshirtAddToCart": "//button[@id='add-to-cart-sauce-labs-bolt-t-shirt']",
+    "sauceLabsFleeceJacketAddToCart": "//button[@id='add-to-cart-sauce-labs-fleece-jacket']",
+    "sauceLabsOnesieAddToCart": "//button[@id='add-to-cart-sauce-labs-onesie']",
+    "sauceLabsRedTshirtAddToCart": "//button[@id='add-to-cart-test.allthethings()-t-shirt-(red)']",
+    "removeBackpackButton": "//button[@id='remove-sauce-labs-backpack']",
+    "removeBikeLightButton": "//button[@id='remove-sauce-labs-bike-light']",
+    "removeBoltTshirtButton": "//button[@id='remove-sauce-labs-bolt-t-shirt']",
+    "removeFleeceJacketButton": "//button[@id='remove-sauce-labs-fleece-jacket']",
+    "removeOnesieButton": "//button[@id='remove-sauce-labs-onesie']",
+    "removeRedTshirtButton": "//button[@id='remove-test.allthethings()-t-shirt-(red)']",
+
+    "inventoryList": ".inventory_list",
+    "inventoryItem": ".inventory_item",
+    "inventoryItemName": ".inventory_item_name",
+    "inventoryItemPrice": ".inventory_item_price",
+    "inventoryItemDescription": ".inventory_item_desc",
+    "inventoryItemImage": ".inventory_item_img",
+    "shoppingCartBadge": "//a[@class='shopping_cart_link']/span[contains(@class,'shopping_cart_badge')]",
+    "shoppingCartLink": ".shopping_cart_link",
+    "inventorySortContainer": ".product_sort_container",
+    "inventorySortDropdown": ".product_sort_container select",
+    "manageSauceLabsBackpack": "//div[normalize-space()='Sauce Labs Backpack']",
+    "manageSauceLabsBikeLight": "//div[normalize-space()='Sauce Labs Bike Light']",
+    "manageSauceLabsBoltTshirt": "//div[normalize-space()='Sauce Labs Bolt T-Shirt']",
+    "manageSauceLabsFleeceJacket": "//div[normalize-space()='Sauce Labs Fleece Jacket']",
+    "manageSauceLabsOnesie": "//div[normalize-space()='Sauce Labs Onesie']",
+    "manageSauceLabsRedTshirt": "//div[normalize-space()='Test.allTheThings() T-Shirt (Red)']",
+    "inventoryItemAddToCartButton": "//button[@id='add-to-cart']",
+    "inventoryBackToProductsButton": "//button[@id='back-to-products']",
+    "cartButton": "//a[@class='shopping_cart_link']",
+    "inventoryItemRemoveButton": "//button[@id='remove-sauce-labs-backpack']",
+    "continueShoppingButton": "//button[@id='continue-shopping']",
+    "manageSauceLabsBackpackRemove": "//button[@id='remove']",
+    "allItemsPage": "//a[@id='inventory_sidebar_link']",
+    "menuButton": "//button[@id='react-burger-menu-btn']",
+    "inventoryItems": ".inventory_item",
+    "addBackpackButton": "//button[@id='add-to-cart-sauce-labs-backpack']",
+    
+    "filterDropdown": ".product_sort_container",
+    "firstInventoryItemName": ".inventory_item_name",
+    "checkoutButton": "#checkout",
+    "firstNameInput": "#first-name",
+    "lastNameInput": "#last-name",
+    "postalCodeInput": "#postal-code",
+    "continueButton": "#continue",
+    "finishButton": "#finish",
+    "orderConfirmation": ".complete-header"
+  }
 }

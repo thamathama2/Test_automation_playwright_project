@@ -1,26 +1,31 @@
-// login.js
+require('dotenv').config();
+
 class LoginPage {
   constructor(page) {
     this.page = page;
-    this.usernameInput = 'input[data-test="username"]';
-    this.passwordInput = 'input[data-test="password"]';
-    this.loginButton = 'input[data-test="login-button"]';
-    this.errorMessage = 'div[data-test="error"]';
   }
 
+  // Method to navigate to the login page
   async goto() {
-    await this.page.goto('https://www.saucedemo.com/');
+    const url = process.env.LOGIN_URL || 'https://www.saucedemo.com/';
+    await this.page.goto(url);
   }
 
-  async login(username, password) {
-    await this.page.fill(this.usernameInput, username);
-    await this.page.fill(this.passwordInput, password);
-    await this.page.click(this.loginButton);
-  }
+  // Async method to perform login and attach screenshot to the test report
+  async login(username, password, testInfo) {
+    await this.page.fill('#user-name', username);
+    await this.page.fill('#password', password);
 
-  async getErrorMessage() {
-    return this.page.textContent(this.errorMessage);
+    // Optional: Uncomment to perform login click
+    // await this.page.click('#login-button');
+
+    // Capture and attach screenshot to test report using testInfo.attach()
+    const screenshot = await this.page.screenshot();
+    await testInfo.attach('Login Page Screenshot', {
+      body: screenshot,
+      contentType: 'image/png',
+    });
   }
 }
 
-module.exports = { LoginPage };
+module.exports = LoginPage;
