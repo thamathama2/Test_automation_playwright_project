@@ -1,6 +1,5 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
-//import { LoginPage } from "../pages/UI/ui_login.js";
 import utilities from '../utilities/utilities.json';
 import { loginApi } from '../pages/API/api_login.js';
 import { baseURL, endpoints } from '../pages/API/api.js';
@@ -394,7 +393,7 @@ test.describe('Restful Booker Booking CRUD operations', () => {
     const body = await response.json();
     expect(body).toHaveProperty('bookingid');
  
-    // Extract the booking_id returned by the API
+    // Extracts the booking_id returned by the API
     const newBookingId = body.bookingid;
  
     // Read current utilities.json data

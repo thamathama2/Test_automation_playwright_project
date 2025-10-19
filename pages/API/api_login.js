@@ -10,7 +10,6 @@ export async function loginApi(request) {
     },
     headers: {
       'Content-Type': 'application/json'
-      // Add more headers here if needed
     },
   });
   const body = await response.json();
