@@ -1,0 +1,2 @@
+cd C:\Test_automation_playwright_project
+npx playwright test
