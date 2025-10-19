@@ -37,6 +37,10 @@ class CartPage {
     await this.page.click(this.selectors.userInterface.sauceLabsRedTshirtAddToCart);
     }
 
+    async  selectCart() {
+    const clickcart = await this.page.locator(this.selectors.userInterface.cartButton);
+    await this.page.click(this.selectors.userInterface.cartButton);
+    }
   
   async verifyCartBadge(expectedCount) {
     const badge = await this.page.locator(this.selectors.userInterface.shoppingCartBadge).textContent();

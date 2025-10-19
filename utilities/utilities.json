@@ -48,14 +48,18 @@
     "inventoryItems": ".inventory_item",
     "addBackpackButton": "//button[@id='add-to-cart-sauce-labs-backpack']",
     
-    "filterDropdown": ".product_sort_container",
     "firstInventoryItemName": ".inventory_item_name",
-    "checkoutButton": "#checkout",
-    "firstNameInput": "#first-name",
-    "lastNameInput": "#last-name",
-    "postalCodeInput": "#postal-code",
-    "continueButton": "#continue",
-    "finishButton": "#finish",
-    "orderConfirmation": ".complete-header"
+    "checkoutButton": "//button[@id='checkout']",
+    "firstNameInput": "//input[@id='first-name']",
+    "lastNameInput": "//input[@id='last-name']",
+    "postalCodeInput": "//input[@id='postal-code']",
+    "continueButton": "//input[@id='continue']",
+    "finishButton": "//button[@id='finish']",
+    "orderConfirmation": ".complete-header",
+    "backHomeButton": "//button[@id='back-to-products']",
+
+    "filterDropdown": "//select[@class='product_sort_container']",
+    "productNames": "div.inventory_item_name",
+    "productPrices": "div.inventory_item_price"
   }
 }

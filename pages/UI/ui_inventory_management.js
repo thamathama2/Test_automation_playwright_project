@@ -95,5 +95,20 @@ class InventoryPage {
 
   }
 
+  async selectFilter(optionValue) {
+    await this.filterDropdown.selectOption(optionValue);
+  }
+   
+  async getProductNames() {
+    const names = await this.page.locator(this.selectors.userInterface.productNames).allTextContents();
+    return names.map(name => name.trim());
+    return names;
 }
-module.exports = { InventoryPage };
+
+  async getProductPrices() {
+    const prices = await this.page.locator(this.selectors.userInterface.productPrices).allTextContents();
+    return prices.map(p => parseFloat(p.trim().replace('$', '')));
+}
+
+}
+module.exports = { InventoryPage};
