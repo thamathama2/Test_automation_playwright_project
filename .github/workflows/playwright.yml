@@ -33,5 +33,5 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
-          path: monochart/playwright-report/
+          path: monocart-report/
           retention-days: 30
