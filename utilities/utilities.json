@@ -1,11 +1,10 @@
 {
-  "bookingID": 3314,
+  "bookingID": 1501,
   "login": {
     "usernameInput": "#user-name",
     "passwordInput": "#password",
     "loginButton": "//input[@id='login-button']",
     "errorMessage": "//div[@class='error-message-container error']"
-    
   },
   "userInterface": {
     "sauceLabsBackpackAddToCart": "//button[@id='add-to-cart-sauce-labs-backpack']",
@@ -20,7 +19,6 @@
     "removeFleeceJacketButton": "//button[@id='remove-sauce-labs-fleece-jacket']",
     "removeOnesieButton": "//button[@id='remove-sauce-labs-onesie']",
     "removeRedTshirtButton": "//button[@id='remove-test.allthethings()-t-shirt-(red)']",
-
     "inventoryList": ".inventory_list",
     "inventoryItem": ".inventory_item",
     "inventoryItemName": ".inventory_item_name",
@@ -47,7 +45,6 @@
     "menuButton": "//button[@id='react-burger-menu-btn']",
     "inventoryItems": ".inventory_item",
     "addBackpackButton": "//button[@id='add-to-cart-sauce-labs-backpack']",
-    
     "firstInventoryItemName": ".inventory_item_name",
     "checkoutButton": "//button[@id='checkout']",
     "firstNameInput": "//input[@id='first-name']",
@@ -57,7 +54,6 @@
     "finishButton": "//button[@id='finish']",
     "orderConfirmation": ".complete-header",
     "backHomeButton": "//button[@id='back-to-products']",
-
     "filterDropdown": "//select[@class='product_sort_container']",
     "productNames": "div.inventory_item_name",
     "productPrices": "div.inventory_item_price"
