@@ -41,7 +41,7 @@ export default defineConfig({
         // Start Chromium with maximized/fullscreen window
         ...devices['Desktop Chrome'],
         ignoreHTTPSErrors: true,   // <-- keep your SSL ignore setting
-        headless: false,
+        headless: true,
         viewport: null,             // Makes the viewport use the full window size
         deviceScaleFactor: undefined, // Avoid conflicts with viewport=null
         launchOptions: {

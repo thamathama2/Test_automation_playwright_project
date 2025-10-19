@@ -408,8 +408,6 @@ test.describe('Restful Booker Booking CRUD operations', () => {
     await fs.writeFile(utilitiesPath, JSON.stringify(utilitiesData, null, 2), 'utf8');
  
     console.log(`Updated booking_id in utilities.json to: ${newBookingId}`);
-    // bookingId = body.bookingid;
-    // console.log(JSON.stringify(body, null, 2));
  
     await new Promise(resolve => setTimeout(resolve, 5000));
   });
@@ -420,6 +418,7 @@ test.describe('Restful Booker Booking CRUD operations', () => {
         Accept: 'application/json',
       },
     });
+    await new Promise(resolve => setTimeout(resolve, 2000));
     expect(response.status()).toBe(200);
     const body = await response.json();
     console.log(JSON.stringify({body}))
