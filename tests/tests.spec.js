@@ -15,18 +15,19 @@ const utilitiesPath = path.join(__dirname, '..', 'utilities', 'utilities.json');
  
  
 require('dotenv').config();
- 
+// Set the URL for the login page, defaulting to the Sauce Demo URL if not provided in environment variables
+let URL= process.env.LOGIN_URL || 'https://www.saucedemo.com/';
 const users = [
   { username: process.env.USER1_USERNAME, password: process.env.USER1_PASSWORD },
   { username: process.env.USER2_USERNAME, password: process.env.USER2_PASSWORD },
   { username: process.env.USER3_USERNAME, password: process.env.USER3_PASSWORD },
 ];
  
-test.describe('User interface tests', () => {
+test.describe('Multi user login', () => {
   users.forEach(({ username, password }) => {
     test(`User login as ${username}`, async ({ page,  }, testInfo) => {
       // Navigate to the login page
-      await page.goto('https://www.saucedemo.com/');
+      await page.goto(URL);
  
       // Fill in login credentials
       await page.fill('#user-name', username ?? '');
@@ -73,14 +74,15 @@ test.describe('User interface tests', () => {
     }
   });  
   });
+});
  
- 
+test.describe('Inventory management, shopping cart functionality and checkout process test ', () => {
   test('Shopping cart functionality', async ({ page }, testInfo) => {
     const inventoryPage = new InventoryPage(page, utilities);
     const cartPage = new CartPage(page, utilities);
     const loginPage = new LoginPage (page);
  
-    await loginPage.goto();
+    await loginPage.goto(URL);
     // Login as standard user
     await loginPage.login(process.env.USER1_USERNAME, process.env.USER1_PASSWORD, testInfo);
     await page.click(utilities.login.loginButton);
@@ -167,7 +169,7 @@ test.describe('User interface tests', () => {
   const loginPage = new LoginPage(page);
  
   // Login first
-  await loginPage.goto();
+  await loginPage.goto(URL);
   await loginPage.login(process.env.USER1_USERNAME, process.env.USER1_PASSWORD, testInfo);
   await page.click(utilities.login.loginButton);
   await new Promise(resolve => setTimeout(resolve, 1000));
@@ -282,81 +284,81 @@ test.describe('User interface tests', () => {
   // await page.click('#logout_sidebar_link');
  
  
-});
+  });
  
-test('Checkout process test', async ({ page }, testInfo) => {
-  const cartPage = new CartPage(page, utilities);
-  const checkoutPage = new CheckoutPage(page, utilities);
-  const loginPage = new LoginPage(page);
-  const inventoryPage = new InventoryPage(page, utilities);
- 
-    await loginPage.goto();
-    // Login as standard user
-    await loginPage.login(process.env.USER1_USERNAME, process.env.USER1_PASSWORD, testInfo);
-    await page.click(utilities.login.loginButton);
- 
-    await cartPage.addSauceLabsBackpackToCart();
-    expect(await cartPage.verifyCartBadge(1)).toBeTruthy();
-    // Add items to cart    
-   
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    await cartPage.addSauceLabsBikeLightToCart();
-    expect(await cartPage.verifyCartBadge(2)).toBeTruthy();
- 
-    await cartPage.addSauceLabsBoltTshirtToCart();
-    expect(await cartPage.verifyCartBadge(3)).toBeTruthy();
- 
-    await new Promise(resolve => setTimeout(resolve, 1000));
- 
-    await cartPage.addSauceLabsFleeceJacket();
-    expect(await cartPage.verifyCartBadge(4)).toBeTruthy();
- 
-    await cartPage.addSauceLabsOnsieToCart();
-    expect(await cartPage.verifyCartBadge(5)).toBeTruthy();
-    await new Promise(resolve => setTimeout(resolve, 1000));
- 
-    await cartPage.addSauceLabsRedTshirtToCart();
- 
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    expect(await cartPage.verifyCartBadge(6)).toBeTruthy();
- 
-    await inventoryPage.selectCart();
-    await new Promise(resolve => setTimeout(resolve, 1000));
- 
-  // Verify all items are in cart
-    await expect(page.locator(utilities.userInterface.manageSauceLabsBackpack)).toBeVisible();
-    await expect(page.locator(utilities.userInterface.manageSauceLabsBikeLight)).toBeVisible();
-    await expect(page.locator(utilities.userInterface.manageSauceLabsBoltTshirt)).toBeVisible();
-    await expect(page.locator(utilities.userInterface.manageSauceLabsFleeceJacket)).toBeVisible();
-    await expect(page.locator(utilities.userInterface.manageSauceLabsOnesie)).toBeVisible();
-    await expect(page.locator(utilities.userInterface.manageSauceLabsRedTshirt)).toBeVisible();
+  test('Checkout process test', async ({ page }, testInfo) => {
+    const cartPage = new CartPage(page, utilities);
+    const checkoutPage = new CheckoutPage(page, utilities);
+    const loginPage = new LoginPage(page);
+    const inventoryPage = new InventoryPage(page, utilities);
+  
+      await loginPage.goto(URL);
+      // Login as standard user
+      await loginPage.login(process.env.USER1_USERNAME, process.env.USER1_PASSWORD, testInfo);
+      await page.click(utilities.login.loginButton);
+  
+      await cartPage.addSauceLabsBackpackToCart();
+      expect(await cartPage.verifyCartBadge(1)).toBeTruthy();
+      // Add items to cart    
+    
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      await cartPage.addSauceLabsBikeLightToCart();
+      expect(await cartPage.verifyCartBadge(2)).toBeTruthy();
+  
+      await cartPage.addSauceLabsBoltTshirtToCart();
+      expect(await cartPage.verifyCartBadge(3)).toBeTruthy();
+  
+      await new Promise(resolve => setTimeout(resolve, 1000));
+  
+      await cartPage.addSauceLabsFleeceJacket();
+      expect(await cartPage.verifyCartBadge(4)).toBeTruthy();
+  
+      await cartPage.addSauceLabsOnsieToCart();
+      expect(await cartPage.verifyCartBadge(5)).toBeTruthy();
+      await new Promise(resolve => setTimeout(resolve, 1000));
+  
+      await cartPage.addSauceLabsRedTshirtToCart();
+  
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      expect(await cartPage.verifyCartBadge(6)).toBeTruthy();
+  
+      await inventoryPage.selectCart();
+      await new Promise(resolve => setTimeout(resolve, 1000));
+  
+    // Verify all items are in cart
+      await expect(page.locator(utilities.userInterface.manageSauceLabsBackpack)).toBeVisible();
+      await expect(page.locator(utilities.userInterface.manageSauceLabsBikeLight)).toBeVisible();
+      await expect(page.locator(utilities.userInterface.manageSauceLabsBoltTshirt)).toBeVisible();
+      await expect(page.locator(utilities.userInterface.manageSauceLabsFleeceJacket)).toBeVisible();
+      await expect(page.locator(utilities.userInterface.manageSauceLabsOnesie)).toBeVisible();
+      await expect(page.locator(utilities.userInterface.manageSauceLabsRedTshirt)).toBeVisible();
 
-    await page.locator(utilities.userInterface.checkoutButton).click();
+      await page.locator(utilities.userInterface.checkoutButton).click();
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      await page.locator(utilities.userInterface.firstNameInput).fill(process.env.USER_FIRST_NAME ?? '');
+      await page.locator(utilities.userInterface.lastNameInput).fill(process.env.USER_LAST_NAME ?? '');
+      await page.locator(utilities.userInterface.postalCodeInput).fill(process.env.USER_POSTAL_CODE ?? '');
+
+      await page.locator(utilities.userInterface.continueButton).click();
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      const subtotalText = await page.locator('[data-test="subtotal-label"]').textContent() ?? '';
+      const subtotalAmount = parseFloat(subtotalText.replace(/[^0-9.]/g, ''));
+      await checkoutPage.determineTotalAmount().then(aggregatePrice => {
+        expect(aggregatePrice).toBeCloseTo(subtotalAmount, 2);
+      });
+
+      await checkoutPage.finishCheckout();
+      await new Promise(resolve => setTimeout(resolve, 1000));
+  
+    // Verify order confirmation
+    const confirmationText = await checkoutPage.getOrderConfirmationText();
+    expect(confirmationText).toContain('Thank you for your order!');
+
+    await page.locator(utilities.userInterface.backHomeButton).click();
     await new Promise(resolve => setTimeout(resolve, 1000));
-
-    await page.locator(utilities.userInterface.firstNameInput).fill(process.env.USER_FIRST_NAME ?? '');
-    await page.locator(utilities.userInterface.lastNameInput).fill(process.env.USER_LAST_NAME ?? '');
-    await page.locator(utilities.userInterface.postalCodeInput).fill(process.env.USER_POSTAL_CODE ?? '');
-
-    await page.locator(utilities.userInterface.continueButton).click();
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    const subtotalText = await page.locator('[data-test="subtotal-label"]').textContent() ?? '';
-    const subtotalAmount = parseFloat(subtotalText.replace(/[^0-9.]/g, ''));
-    await checkoutPage.determineTotalAmount().then(aggregatePrice => {
-      expect(aggregatePrice).toBeCloseTo(subtotalAmount, 2);
-    });
-
-    await checkoutPage.finishCheckout();
-    await new Promise(resolve => setTimeout(resolve, 1000));
- 
-  // Verify order confirmation
-  const confirmationText = await checkoutPage.getOrderConfirmationText();
-  expect(confirmationText).toContain('Thank you for your order!');
-
-  await page.locator(utilities.userInterface.backHomeButton).click();
-  await new Promise(resolve => setTimeout(resolve, 1000));
-});
+  });
 });
  
 test.describe.configure({ mode: 'serial' });
@@ -411,19 +413,24 @@ test.describe('Restful Booker Booking CRUD operations', () => {
     await new Promise(resolve => setTimeout(resolve, 5000));
   });
  
+  
   test('Get Booking Details', async ({ request }) => {
-    const response = await request.get(`${baseURL}${endpoints.booking}/${booking_id}`, {
-      headers: {
-        Accept: 'application/json',
-      },
-    });
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    expect(response.status()).toBe(200);
-    const body = await response.json();
-    console.log(JSON.stringify({body}))
-    expect(body.firstname).toBe('John');
-    expect(body.lastname).toBe('Doe');
+    // run flaky test twice to avoid false fail 
+    for (let i = 0; i < 2; i++) {
+      const response = await request.get(`${baseURL}${endpoints.booking}/${booking_id}`, {
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      expect(response.status()).toBe(200);
+      const body = await response.json();
+      console.log(JSON.stringify({body}))
+      expect(body.firstname).toBe('John');
+      expect(body.lastname).toBe('Doe');
+    };
   });
+
  
   test('Update Booking', async ({ request }) => {
     const updateData = {

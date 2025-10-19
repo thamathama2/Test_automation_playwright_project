@@ -23,7 +23,12 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [
+    ['monocart-reporter', {
+      name: 'My Test Report',
+      outputFile: './monocart-report/index.html',
+    }],
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
@@ -41,7 +46,7 @@ export default defineConfig({
         // Start Chromium with maximized/fullscreen window
         ...devices['Desktop Chrome'],
         ignoreHTTPSErrors: true,   // <-- keep your SSL ignore setting
-        headless: true,
+        headless: false,
         viewport: null,             // Makes the viewport use the full window size
         deviceScaleFactor: undefined, // Avoid conflicts with viewport=null
         launchOptions: {

@@ -6,8 +6,7 @@ class LoginPage {
   }
 
   // Method to navigate to the login page
-  async goto() {
-    const url = process.env.LOGIN_URL || 'https://www.saucedemo.com/';
+  async goto(url) {
     await this.page.goto(url);
   }
 
