@@ -1,5 +1,5 @@
 {
-  "bookingID": 5046,
+  "bookingID": 2041,
   "login": {
     "usernameInput": "#user-name",
     "passwordInput": "#password",
@@ -47,6 +47,8 @@
     "backHomeButton": "//button[@id='back-to-products']",
     "filterDropdown": "//select[@class='product_sort_container']",
     "productNames": "div.inventory_item_name",
-    "productPrices": "div.inventory_item_price"
+    "productPrices": "div.inventory_item_price",
+    "homePage": "//div[@id='inventory_container']//div//div[@id='inventory_container']",
+    "menuLogout": "//a[@id='logout_sidebar_link']"
   }
 }

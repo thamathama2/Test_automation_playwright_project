@@ -26,6 +26,13 @@ class InventoryPage {
     await this.page.click(this.selectors.userInterface.manageSauceLabsBikeLight);
   }
 
+  async selectLogout() {
+    const menu = await this.page.locator(this.selectors.userInterface.menuButton);
+    await this.page.click(this.selectors.userInterface.menuButton);
+    const logout = await this.page.locator(this.selectors.userInterface.menuLogout);
+    await this.page.click(this.selectors.userInterface.menuLogout);
+  }
+
   async selectSauceLabsBoltTshirt() {
     const tshirt = await this.page.locator(this.selectors.userInterface.manageSauceLabsBoltTshirt);
     await this.page.click(this.selectors.userInterface.manageSauceLabsBoltTshirt);
@@ -67,8 +74,6 @@ class InventoryPage {
     return items;
   }     
 
-
-
   async addBackpackToCart() {
     await this.page.click(this.selectors.userInterface.addBackpackButton);
   }
@@ -94,6 +99,7 @@ class InventoryPage {
     await this.page.click(allItemsPage);
 
   }
+  
 
   async selectFilter(optionValue) {
     await this.filterDropdown.selectOption(optionValue);
